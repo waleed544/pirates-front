@@ -31,11 +31,11 @@ function Signin() {
       <main className="form-signin w-100 m-auto mt-5 pt-5 d-flex align-items-center justify-content-center">
         <form>
           <img
-            className="mb-4"
-            src="/assets/facebook.png"
+            className="mb-4  img_form"
+            src="/assets/pirates.jpg"
             alt=""
-            width="80"
-            height="80"
+            width="120"
+            height="120"
             id="img_form"
           />
           <h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>

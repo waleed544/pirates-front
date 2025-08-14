@@ -1,0 +1,251 @@
+/* sign in */
+.img_form{
+    border-radius: 50%;
+    margin-left: 19%;
+}
+
+.gradient-background {
+  background: linear-gradient(300deg, #f2f4f7, #e2e5e9,#f0f2f5);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}
+
+
+ /* home */
+.header{
+  padding-top: 70px;
+  font-family: "Edu NSW ACT Cursive", cursive;
+  font-optical-sizing: auto;
+  font-weight: 1000;
+  font-style: normal;
+  text-align: center;
+ font-size: 50px;
+}
+
+.heading{
+  font-family: "Edu NSW ACT Cursive", cursive;
+  font-optical-sizing: auto;
+  font-weight: 1000;
+  font-style: normal;
+  height: 11vh;
+  text-align: center;
+  /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); */
+  padding-top: 1rem;
+
+}
+
+
+
+
+
+
+/* profile page */
+
+#my_img
+{
+    border-radius: 50%;
+    max-width: 220px;
+    height: auto;
+}
+.sora
+{
+  margin-top: -5rem;
+}
+#cont1 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height:20rem;
+    margin-bottom: 8rem;
+    width: 98%;
+    margin-left: 1%;
+}
+#cont1 h1{
+    color :white
+}
+
+
+@media (max-width: 768px) {
+  #my_img {
+    max-width: 180px;
+    max-height: auto;
+  }
+
+  
+}
+
+.card
+{
+    border-radius: 20px;
+    box-shadow: 5px 5px 3px #8C9097;
+    display: inline-block;
+    width:auto;
+    height: auto;
+    max-width: 62%; 
+}
+@media (max-width:1300px) {
+.card
+{
+    max-width: 98%;
+}
+    
+}
+.btn{
+    width:150px;
+}
+#formform
+{
+    width:50rem;
+}
+.img-fluid
+{
+    max-width: 500px;
+    height: auto;
+    border-radius: 2%;
+}
+.card-img-top
+{
+     max-width: 500px;
+    max-height: 500px;
+    border-radius: 2%;
+}
+
+
+.profile_container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; 
+  gap: 1rem;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.left, .right {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  overflow-y: auto;
+  margin: 0;
+}
+
+.infocard {
+  margin: 20px;
+  margin-top: 50px;
+  width: calc(100% - 40px);
+}
+
+@media (max-width: 900px) {
+  .profile_container {
+    grid-template-columns: 1fr 2fr; 
+  }
+  .right {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .profile_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .left, .right {
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: block;
+  }
+  .card{
+    background-color: red;
+  }
+
+}
+
+.add-post{
+   max-width: 270px;
+  }
+  
+.small-btn{
+  display: inline-block;
+  width :45%;
+  height: 12%;
+}  
+
+
+
+
+
+
+
+/* Chat styles to be reviewd*/
+
+
+
+.gradient-light {
+  background: linear-gradient(135deg, #e6f0ff, #f5faff);
+}
+
+.header {
+  font-family: "Edu NSW ACT Cursive", cursive;
+  font-weight: 900;
+  font-size: 50px;
+  color: #004085;
+}
+
+.card-box {
+  background: white;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 450px;
+  border: 1px solid #cce5ff;
+}
+
+.form-control {
+  border: 1px solid #b8daff;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #339af0;
+  box-shadow: 0 0 5px rgba(51, 154, 240, 0.5);
+}
+
+.btn-primary {
+  background-color: #339af0;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #1d8de0;
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+  color: #004085;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #1d8de0;
+}
+
+.post-section {
+  border: 1px solid #cce5ff;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.post-placeholder {
+  font-style: italic;
+}
+
