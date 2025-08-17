@@ -3,7 +3,7 @@ import axios from "axios";
 
 import {useNavigate} from "react-router-dom"
 
-const url = "http://localhost:5000/";
+const url = process.env.REACT_APP_API_URL;
 
 function Signin() {
   const [Username, setusername] = useState("");
@@ -18,7 +18,7 @@ function Signin() {
       password: Password,
     };
     try {
-      const res = await axios.post(url + "login", body, {
+      const res = await axios.post(url + "/login", body, {
         withCredentials: true,
       });
       console.log("Login success:", res.data);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const addPostUrl = "http://localhost:5000/users/addPost";
+const addPostUrl = `${process.env.REACT_APP_API_URL}/users/addPost`;
 
 function AddPost(props) {
   const [formData, setFormData] = useState({

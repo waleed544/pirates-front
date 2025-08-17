@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 import PostCardHome from "./PostCardHome";
 
-const url = "http://localhost:5000/";
-const getPostsUrl = "http://localhost:5000/users/getAllPosts";
+
+
+const url = process.env.REACT_APP_API_URL;
+const getPostsUrl = `${process.env.REACT_APP_API_URL}/users/getAllPosts`;
 
 function Home() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function Home() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get(url + "auth/check", {
+        const res = await axios.get(url + "/auth/check", {
           withCredentials: true,
         });
         if (!res.data.authenticated) {
@@ -135,6 +137,7 @@ function Home() {
           <div className="home-container">
             {posts.map((post)=>{
               return<PostCardHome
+              key={post.id}
               profilePicUrl={post.profilepic_url}
               name={post.name}
               imageUrl={post.img_url}

@@ -2,8 +2,8 @@ import React, { use, useState } from "react";
 import axios from "axios";
 import ImageUpload from "./ImageUpload";
 
-const deletePostUrl = "http://localhost:5000/users/deletePost";
-const editPostUrl = "http://localhost:5000/users/editPost";
+const deletePostUrl = `${process.env.REACT_APP_API_URL}/users/deletePost`;
+const editPostUrl = `${process.env.REACT_APP_API_URL}/users/editPost`;
 
 function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
   const [isEditing, setIsEditing] = useState(false);

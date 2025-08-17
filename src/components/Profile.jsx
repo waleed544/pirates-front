@@ -16,8 +16,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 
-const getPostUrl = "http://localhost:5000/users/getUserPosts";
-const checkUserInfoUrl="http://localhost:5000/users/getInfo";
+const getPostUrl = `${process.env.REACT_APP_API_URL}/users/getUserPosts`;
+const checkUserInfoUrl=`${process.env.REACT_APP_API_URL}/users/getInfo`;
 
 function Profile() {
    const navigate = useNavigate();

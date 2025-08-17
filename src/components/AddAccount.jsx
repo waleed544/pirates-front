@@ -4,7 +4,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const addInfoUrl = "http://localhost:5000/users/addInfo";
+const addInfoUrl = `${process.env.REACT_APP_API_URL}/users/addInfo`;
 
 
 function AddAccount() {

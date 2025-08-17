@@ -2,8 +2,8 @@ import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import axios from "axios";
-const editProfilePicUrl = "http://localhost:5000/users/updateUserProfilePic";
-const editCoverPicUrl ="http://localhost:5000/users/updateUserCoverPic"
+const editProfilePicUrl = `${process.env.REACT_APP_API_URL}/users/updateUserProfilePic`;
+const editCoverPicUrl =`${process.env.REACT_APP_API_URL}/users/updateUserCoverPic`;
 
 
 

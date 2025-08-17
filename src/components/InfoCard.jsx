@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const editUserInfoUrl = "http://localhost:5000/users/updateUserInfo";
+const editUserInfoUrl = `${process.env.REACT_APP_API_URL}/users/updateUserInfo`;
 
 function InfoCard({ phone, email, age,userId,handlechange }) {
   const [isEdited, setIsEdited] = useState(false);
