@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-function InfoCard({ phone, email, age }) {
+const editUserInfoUrl = "http://localhost:5000/users/updateUserInfo";
+
+function InfoCard({ phone, email, age,userId,handlechange }) {
   const [isEdited, setIsEdited] = useState(false);
   const [editedPhone,setEditedPhone]=useState(phone);
   const [editedEmail,setEditedEmail]=useState(email);
@@ -12,6 +15,21 @@ function InfoCard({ phone, email, age }) {
     setEditedEmail(email);
     setEditedPhone(phone);
   }
+
+  async function handleEditInfo(e) {
+    e.preventDefault(); 
+    const formdata= new FormData();
+    formdata.append("phone",editedPhone);
+    formdata.append("email",editedEmail);
+    formdata.append("age",editedAge);
+    const result=await axios.post(editUserInfoUrl+`/${userId}`,formdata);
+    console.log("Result from Editing info is"+result.data);
+     handlechange(editedPhone,editedEmail,editedAge);
+     handeltoggle();
+      return 1;
+  }
+
+
   return (
     <div className="card infocard shadow-sm p-3">
       {!isEdited && (
@@ -38,6 +56,7 @@ function InfoCard({ phone, email, age }) {
       )}
 
       {isEdited && (
+        <form onSubmit={handleEditInfo}>
         <div>
           <h5 className="card-title mb-3">Contact Info </h5>
           <ul className="list-unstyled mb-0">
@@ -79,12 +98,13 @@ function InfoCard({ phone, email, age }) {
             </li>
           </ul>
           <div className="d-flex">
-            <button className="btn btn-dark btn-sm mx-1">Submit</button>
+            <button className="btn btn-dark btn-sm mx-1" type="submit">Submit</button>
             <button className="btn btn-dark btn-sm mx-1" onClick={handeltoggle}>
               Cancel
             </button>
           </div>
         </div>
+        </form>
       )}
     </div>
   );

@@ -55,9 +55,9 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
     <div className="d-flex flex-column align-items-center  " >
       {/* Default view */}
       {!isEditing && (
-        <div className="card m-3 p-2 text-center" >
+        <div className="profile-card" >
           <img
-            className="card-img-top"
+            className="profile-card-img"
             src={`http://localhost:5000${imageUrl}`}
             alt="Card"
             style={{ "display":"block","maxWidth": "100%", "height": "auto" }}
@@ -65,7 +65,7 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{body}</p>
-            <div className="d-flex justify-content-center">
+            <div className="card-actions">
               <button
                 className="btn btn-dark m-2"
                 onClick={() => handleDelete(id)}

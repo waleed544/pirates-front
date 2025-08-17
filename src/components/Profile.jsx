@@ -14,61 +14,61 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const getPostUrl = "http://localhost:5000/users/getUserPosts";
 const checkUserInfoUrl="http://localhost:5000/users/getInfo";
 
 function Profile() {
-  // const [name, setName] = useState("John Doe");
-  // const [phone, setPhone] = useState("+123456789");
-  // const [headline, setHeadline] = useState("Full Stack Developer | Dreamer");
-  // const [profilePic, setProfilePic] = useState(null);
-  // const [coverPic, setCoverPic] = useState(
-  //   "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1500&q=80"
-  // );
-  const navigate = useNavigate();
+   const navigate = useNavigate();
   const location = useLocation();
   const { userid } = location.state || {}; // safely get userid
   console.log("UserID:", userid);
-  if (userid === undefined) {
-    navigate("/SignUp");
-  }
+  const [posts, setPosts] = useState([]);
+  const [userInfo,setUserInfo]=useState({});
+  const [loading, setLoading] = useState(true); // track loading state
 
+  
 
   useEffect(()=>{
-    const fetchUserInfo= async()=>{
-       if(userid==undefined){
+    if(!userid){
        navigate("/SignUp");
+       return;
     }
+    const fetchUserInfo= async()=>{
+      try{
       const result=await axios.get(checkUserInfoUrl+`/${userid}`);
-      console.log("Get User Info Res"+JSON.stringify(result.data));
-      
       if(result.data.code==-1)
       {
       navigate("/addAccount", { state: { userid: userid } });
-
       }
       else if(result.data.code==-2)
       {
         navigate("/SignUp" );
       }
       else if(result.data.code==1){
-        console.log("User Info Is"+result.data.datarr)
+        setUserInfo(result.data.datarr);
+        console.log("User Info Is"+JSON.stringify(result.data.datarr));
       }
+    }catch(err)
+    {
+      console.log("Error happened "+err);
+    }
+    finally{
+      setLoading(false);
+    }
     }
    fetchUserInfo();
   },[userid]);
 
 
 
-
-  const [posts, setPosts] = useState([]);
   useEffect(() => {
      if(!userid){
        navigate("/SignUp");
+       return;
     }
     const fetchUserPosts = async () => {
-      
       try {
         const res = await axios.get(getPostUrl + `/${userid}`, {
           withCredentials: true,
@@ -89,9 +89,19 @@ function Profile() {
     fetchUserPosts();
   }, [userid]);
 
+
+
+  if (loading) {
+    return (
+     <Spinner />
+    );
+  }
+
+  //functions
+
   function handleUpdatePost(post) {
     setPosts((prev) => {
-      return [...prev, post];
+      return [...prev,post];
     });
   }
   function handleDeletPost(id) {
@@ -116,25 +126,50 @@ function Profile() {
       })
     );
   }
+  function handleInfoChange(newPhone,newEmail,newAge){
+    setUserInfo((prev)=>{
+      return{
+        ...prev,
+        phone:newPhone,
+        email:newEmail,
+        age:newAge
+      }
+    })
+  }
+  function handleProfilePicUpdate(newUrl){
+    setUserInfo((prev)=>{
+      return({
+        ...prev,
+        profilepic_url:newUrl
+      });
+  });
+  }
 
-  // const handleProfileUpload = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) setProfilePic(URL.createObjectURL(file));
-  // };
+  function handleCoverPicUpdate(newUrl){
+    setUserInfo((prev)=>{
+      return({
+        ...prev,
+        coverpic_url:newUrl
+      });
+  });
+  }
 
-  // const handleCoverUpload = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) setCoverPic(URL.createObjectURL(file));
-  // };
+
+
+
+
+  
+
 
   return (
     <div className="gradient-background profile_main">
       <ProfileTop
-        name="walid Nasr"
-        photoSrc="/assets/myphoto.jpg"
-        backgroundSrc="/assets/nature1.jpg"
-        phone="01024570574"
-        job="Engineer"
+        name={userInfo.name}
+        photoSrc={userInfo.profilepic_url}
+        backgroundSrc={userInfo.coverpic_url}
+        userId={userid}
+        handleprofileupdate={handleProfilePicUpdate}
+        handlecoverupdate={handleCoverPicUpdate}
       />
 
       {/* 3-column layout */}
@@ -142,9 +177,11 @@ function Profile() {
         {/* Left */}
         <div className="left">
           <InfoCard
-            phone="+20 102 457 0574"
-            email="walid.nasr@example.com"
-            age="21"
+            phone={userInfo.phone}
+            email={userInfo.email}
+            age={userInfo.age}
+            userId={userid}
+            handlechange={handleInfoChange}
           />
           <AddPost userid={userid} handleupdate={handleUpdatePost} />
         </div>
@@ -165,7 +202,7 @@ function Profile() {
                 />
               ))
             : (
-            <h1 className="header">No Posts Yet Add Now</h1>)}
+            <h1 className="header">No Posts Yet... Add Now !</h1>)}
         </div>
 
         {/* Right */}

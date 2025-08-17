@@ -14,9 +14,7 @@ function AddAccount() {
   
   const { userid } = location.state || {}; // safely get userid
   console.log("UserID:", userid);
-  if (userid === undefined) {
-    navigate("/SignUp");
-  }
+
 
 
 
@@ -28,6 +26,13 @@ function AddAccount() {
   const [age, setAge] = useState("");
   const [previewProfile, setPreviewProfile] = useState("");
   const [previewCover, setPreviewCover] = useState("");
+
+  useEffect(() => {
+       if(!userid){
+         navigate("/SignUp");
+         return;
+      }
+    },[]);
 
   async function handleCreateAccount(e) {
     e.preventDefault();
