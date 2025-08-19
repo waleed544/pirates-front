@@ -71,8 +71,8 @@ function AddAccount() {
     }
   }
 
- {loading && <Spinner />}
-// if(loading) return <Spinner />
+//  {loading && <Spinner />}
+if(loading) return <Spinner />
 
   return (
     <div className="gradient-background min-vh-100 d-flex flex-column align-items-center justify-content-center text-center">

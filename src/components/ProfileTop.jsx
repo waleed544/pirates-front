@@ -79,8 +79,9 @@ export default function ProfileCard({ name, photoSrc, backgroundSrc,userId,handl
   setLoading(false);
   toggleEdit();
 }
- {loading && <Spinner />}
- 
+//  {loading && <Spinner />}
+if(loading) return <Spinner />
+
   return (
     <div>
     <div

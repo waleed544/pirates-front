@@ -52,7 +52,8 @@ function AddPost(props) {
     setLoading(false);
   };
 
-   {loading && <Spinner />}
+  //  {loading && <Spinner />}
+  if(loading) return <Spinner />
 
   return (
     <div className="text-center my-4 container ">

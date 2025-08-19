@@ -54,8 +54,8 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
       setLoading(false);
      return 1;
   }
-
-   {loading && <Spinner />}
+   if(loading) return <Spinner />
+  //  {loading && <Spinner />}
   return (
     <div className="d-flex flex-column align-items-center  " >
       {/* Default view */}
