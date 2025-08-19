@@ -58,7 +58,7 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
         <div className="profile-card" >
           <img
             className="profile-card-img"
-            src={`http://localhost:5000${imageUrl}`}
+            src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
             alt="Card"
             style={{ "display":"block","maxWidth": "100%", "height": "auto" }}
           />

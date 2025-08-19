@@ -5,13 +5,13 @@ function PostCardHome({profilePicUrl,name, imageUrl, title, body }) {
       <div className="home-card">
         <div className="HomeCardInfo">
           <img className="SmallProfilePic"
-           src={`http://localhost:5000${profilePicUrl}`}
+           src={`${process.env.REACT_APP_API_URL}${profilePicUrl}`}
            />
           <p>{name}</p>
         </div>
         <img
           className="home-card-img"
-          src={`http://localhost:5000${imageUrl}`}
+          src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
           alt="Card"
         />
         <div className="card-body">

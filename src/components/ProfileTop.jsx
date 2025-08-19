@@ -83,7 +83,7 @@ export default function ProfileCard({ name, photoSrc, backgroundSrc,userId,handl
       style={{
         backgroundImage: `url(${
           !coverPicPreview
-            ? `http://localhost:5000${backgroundSrc}`
+            ? `${process.env.REACT_APP_API_URL}${backgroundSrc}`
             : coverPicPreview
         })`,
       }}
@@ -108,7 +108,7 @@ export default function ProfileCard({ name, photoSrc, backgroundSrc,userId,handl
         className="profileImg"
         src={
           !profilePicPreview
-            ? `http://localhost:5000${photoSrc}`
+            ? `${process.env.REACT_APP_API_URL}${photoSrc}`
             : profilePicPreview
         }
         alt={`${name}'s photo`}

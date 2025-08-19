@@ -34,7 +34,7 @@ function ImageUpload({ imageUrl, onFileFinished }) {
       {/* Image */}
       <img
         className="img-fluid mb-3"
-        src={previewUrl || `http://localhost:5000${imageUrl}`}
+        src={previewUrl || `${process.env.REACT_APP_API_URL}${imageUrl}`}
         alt="Card"
         style={{ width: "auto", maxWidth: "100%", height: "auto", cursor: "pointer" }}
         onClick={handleImageClick}
