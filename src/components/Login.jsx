@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {useNavigate} from "react-router-dom"
 
 const url = process.env.REACT_APP_API_URL;
 
 function Signin() {
+  
   const [Username, setusername] = useState("");
   const [Password, setpassword] = useState("");
+  const location = useLocation();
 
 
   const navigate=useNavigate();
@@ -21,9 +25,10 @@ function Signin() {
       const res = await axios.post(url + "/login", body, {
         withCredentials: true,
       });
-      console.log("Login success:", res.data);
+      console.log("Data is", res.data);
       if (res.status === 200) {
-       navigate("/home")
+       navigate("/home", { state: { userid: res.data.user.id } });
+       console.log("navigating home with id is"+res.data.user.id);
        } // Redirect here after login success
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);

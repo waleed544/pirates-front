@@ -207,7 +207,7 @@ function Profile() {
 
         {/* Right */}
         <div className="bg-gray-100 p-4 right">
-          <RightSidebar />
+          <RightSidebar userId={userid} />
         </div>
       </div>
     </div>

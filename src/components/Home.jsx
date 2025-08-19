@@ -7,6 +7,7 @@ import AddAccount from "./AddAccount";
 import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 import PostCardHome from "./PostCardHome";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -15,31 +16,25 @@ const getPostsUrl = `${process.env.REACT_APP_API_URL}/users/getAllPosts`;
 
 function Home() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+   const { userid } = location.state || {}; 
+   console.log("User Id is"+userid);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await axios.get(url + "/auth/check", {
-          withCredentials: true,
-        });
-        if (!res.data.authenticated) {
-          console.log("Navigate to Sign Up");
-          navigate("/SignUp");
-        } else {
-          setUser(res.data.user); // set user from response data
-          console.log("User is", res.data.user);
-        }
-      } catch (error) {
-        console.error("Auth check failed:", error);
-      }
-    };
-    checkAuth();
-  }, [navigate]);
+    if (userid) {
+      setUser(userid);
+      console.log("User Id is " + userid);
+    } else {
+      navigate("/SignUp");
+    }
+  }, [userid, navigate]);
+
 
   useEffect(() => {
+     if (!user) return; // only fetch if user exists
     const getPosts = async () => {
       try {
         const res = await axios.get(getPostsUrl);
@@ -51,7 +46,7 @@ function Home() {
       }
     };
     getPosts();
-  }, []);
+  }, [user]);
 
   if (loading) return <Spinner />;
 
@@ -59,7 +54,11 @@ function Home() {
     <div className="gradient-background min-vh-100">
       {/* Navigation Bar */}
       <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light shadow-sm px-4">
-        <Link className="navbar-brand fw-bold text-primary fs-3" to="/">
+        <Link
+         className="navbar-brand fw-bold text-primary fs-3" 
+         to="/"
+         state={{ userid: userid }}
+         >
           🏴‍☠️ Pirates
         </Link>
 
@@ -80,7 +79,11 @@ function Home() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/">
+              <Link
+               className="nav-link fw-semibold" 
+               to="/"
+               state={{ userid: userid }}
+               >
                 Home
               </Link>
             </li>
@@ -89,7 +92,7 @@ function Home() {
                 <Link
                   className="nav-link fw-semibold"
                   to="/profile"
-                  state={{ userid: user.id }}
+                  state={{ userid: userid }}
                 >
                   Profile
                 </Link>

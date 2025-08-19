@@ -9,7 +9,7 @@ const addInfoUrl = `${process.env.REACT_APP_API_URL}/users/addInfo`;
 
 function AddAccount() {
    const navigate = useNavigate();
-  const location = useLocation();
+   const location = useLocation();
 
   
   const { userid } = location.state || {}; // safely get userid
@@ -55,6 +55,7 @@ function AddAccount() {
     console.log("Result After Adding Info is"+JSON.stringify(result.data));
     if(result.data=="Info Added Succesfully")
     {
+      console.log("Navigate to profile");
       navigate("/profile",{ state: { userid: userid } });
     }
   }

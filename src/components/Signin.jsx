@@ -16,11 +16,12 @@ function Signin() {
     };
     const res = await axios.post(url + "/signup", body,{ withCredentials: true });
     console.log(res);
-    if(res.data=="successful")
+    if(res.data.message=="successful")
     {
-         navigate("/home");
+         navigate("/home", { state: { userid: res.data.id } });
+         console.log("Navigaying home with id "+res.data.id);
     }
-    else if(res.data="duplicate user")
+    else if(res.data.message="duplicate user")
     {
          navigate('/login');
     }
