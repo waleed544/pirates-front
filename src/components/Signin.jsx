@@ -75,15 +75,6 @@ function Signin() {
           >
             Sign in
           </button>
-          <button
-            className="btn btn-primary w-100 py-2 mt-3"
-            type="button"
-            onClick={() => {
-              window.location.href = "http://localhost:5000/auth/google";
-            }}
-          >
-            Sign in with Google
-          </button>
 
           <p className="mt-5 mb-3 text-body-secondary">© 2025</p>
         </form>
