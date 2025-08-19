@@ -4,12 +4,16 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Spinner from "./Spinner"
 const addInfoUrl = `${process.env.REACT_APP_API_URL}/users/addInfo`;
+
 
 
 function AddAccount() {
    const navigate = useNavigate();
    const location = useLocation();
+   const [loading, setLoading] = useState(false);
+
 
   
   const { userid } = location.state || {}; // safely get userid
@@ -36,6 +40,7 @@ function AddAccount() {
 
   async function handleCreateAccount(e) {
     e.preventDefault();
+     setLoading(true); // start loading
     const formData = new FormData();
     formData.append("profileImg", profileImg);
     formData.append("coverImg", coverImg);
@@ -49,7 +54,7 @@ function AddAccount() {
       console.log(key, value);
     }
 
-    const result = await axios.post(addInfoUrl, formData, {
+    try{const result = await axios.post(addInfoUrl, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     console.log("Result After Adding Info is"+JSON.stringify(result.data));
@@ -58,10 +63,17 @@ function AddAccount() {
       console.log("Navigate to profile");
       navigate("/profile",{ state: { userid: userid } });
     }
+   }catch(err){
+    console.log("Error"+err);
+   }
+    finally{
+      setLoading(false);
+    }
   }
 
+ {loading && <Spinner />}
+// if(loading) return <Spinner />
 
-  
   return (
     <div className="gradient-background min-vh-100 d-flex flex-column align-items-center justify-content-center text-center">
       <h1 className="header mb-4">Create an Account to Pirates</h1>

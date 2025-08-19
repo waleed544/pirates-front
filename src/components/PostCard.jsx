@@ -1,6 +1,7 @@
 import React, { use, useState } from "react";
 import axios from "axios";
 import ImageUpload from "./ImageUpload";
+import Spinner from "./Spinner";
 
 const deletePostUrl = `${process.env.REACT_APP_API_URL}/users/deletePost`;
 const editPostUrl = `${process.env.REACT_APP_API_URL}/users/editPost`;
@@ -10,6 +11,7 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
   const [editTitle, setEditTitle] = useState(title);
   const [editBody, setEditBody] = useState(body);
   const [editFile,setEditFile]=useState(null);
+    const [loading, setLoading] = useState(false);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -30,6 +32,7 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
      ondelte(id);
   }
   async function handleedit(id, editTitle, editBody){
+      setLoading(true);
      const _formData=new FormData();
       _formData.append("title", editTitle);
       _formData.append("content", editBody);
@@ -48,9 +51,11 @@ function PostCard({ id, imageUrl, title, body,ondelte,onedit }) {
     };
     console.log("Sending To parent Post "+ JSON.stringify(post));
     onedit(post);
+      setLoading(false);
      return 1;
   }
 
+   {loading && <Spinner />}
   return (
     <div className="d-flex flex-column align-items-center  " >
       {/* Default view */}

@@ -2,6 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 const editProfilePicUrl = `${process.env.REACT_APP_API_URL}/users/updateUserProfilePic`;
 const editCoverPicUrl =`${process.env.REACT_APP_API_URL}/users/updateUserCoverPic`;
 
@@ -15,6 +16,7 @@ export default function ProfileCard({ name, photoSrc, backgroundSrc,userId,handl
   const [isEditing,setIsEditing]=useState(false);
   const [profilePicFile,setProfilePicFile]=useState(null);
   const [coverPicFile,setCoverPicFile]=useState(null);
+  const [loading, setLoading] = useState(false);
 
   function toggleEdit(){
     setIsEditing(false);
@@ -48,6 +50,7 @@ export default function ProfileCard({ name, photoSrc, backgroundSrc,userId,handl
     }
   }
   async function handleEditPics(){
+    setLoading(true);
     if(profilePicFile){
       const formData=new FormData();
       formData.append("profilePic",profilePicFile);
@@ -73,9 +76,11 @@ export default function ProfileCard({ name, photoSrc, backgroundSrc,userId,handl
     }
 
   }
+  setLoading(false);
   toggleEdit();
 }
-
+ {loading && <Spinner />}
+ 
   return (
     <div>
     <div

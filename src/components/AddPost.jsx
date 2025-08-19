@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const addPostUrl = `${process.env.REACT_APP_API_URL}/users/addPost`;
 
 function AddPost(props) {
+
   const [formData, setFormData] = useState({
     image: null,
     title: "",
     content: "",
   });
+   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -22,6 +25,7 @@ function AddPost(props) {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const _formData = new FormData();
     _formData.append("title", formData.title);
@@ -45,7 +49,10 @@ function AddPost(props) {
       title: "",
       content: "",
     }));
+    setLoading(false);
   };
+
+   {loading && <Spinner />}
 
   return (
     <div className="text-center my-4 container ">
