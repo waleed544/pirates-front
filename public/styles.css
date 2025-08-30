@@ -493,3 +493,8 @@
   background-color: white;
 }
 
+.error{
+  font-size: large;
+  color: red;
+  font-weight: 500;
+}

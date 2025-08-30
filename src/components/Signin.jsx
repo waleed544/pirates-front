@@ -30,7 +30,7 @@ function Signin() {
   return (
     <div className="container">
       <main className="form-signin w-100 m-auto mt-5 pt-5 d-flex align-items-center justify-content-center">
-        <form>
+        <form onSubmit={handle_request}>
           <img
             className="mb-4  img_form"
             src="/assets/pirates.jpg"
@@ -51,6 +51,7 @@ function Signin() {
               onChange={(e) => {
                 setusername(e.target.value);
               }}
+              required
             />
             <label htmlFor="floatingInput">Email address</label>
           </div>
@@ -65,16 +66,16 @@ function Signin() {
               onChange={(e) => {
                 setpassword(e.target.value);
               }}
+              required
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
          
           <button
             className="btn btn-dark w-100 py-2 mt-3"
-            type="button"
-            onClick={handle_request}
+            type="submit"
           >
-            Sign in
+            Sign Up
           </button>
 
           <p className="mt-5 mb-3 text-body-secondary">© 2025</p>

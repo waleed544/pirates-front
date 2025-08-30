@@ -4,17 +4,15 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 const url = process.env.REACT_APP_API_URL;
-
+const currentYear = new Date().getFullYear();
 function Signin() {
-  
   const [Username, setusername] = useState("");
   const [Password, setpassword] = useState("");
+  const [error, seterror] = useState("");
   const location = useLocation();
 
-
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   async function handle_request(e) {
     e.preventDefault();
     const body = {
@@ -27,19 +25,23 @@ function Signin() {
       });
       console.log("Data is", res.data);
       if (res.status === 200) {
-       navigate("/home", { state: { userid: res.data.user.id } });
-       console.log("navigating home with id is"+res.data.user.id);
-       } // Redirect here after login success
+        navigate("/home", { state: { userid: res.data.user.id } });
+        console.log("navigating home with id is" + res.data.user.id);
+      } // Redirect here after login success
+      else {
+        console.log("errrrrr"+res.data);
+        seterror(res?.data?.message ?? "Something went wrong");
+      }
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
-     
+      seterror(err?.response?.data?.message ?? "Something went wrong");
     }
   }
 
   return (
     <div className="container">
       <main className="form-signin w-100 m-auto mt-5 pt-5 d-flex align-items-center justify-content-center">
-        <form>
+        <form onSubmit={handle_request}>
           <img
             className="mb-4  img_form"
             src="/assets/pirates.jpg"
@@ -60,6 +62,7 @@ function Signin() {
               onChange={(e) => {
                 setusername(e.target.value);
               }}
+              required
             />
             <label htmlFor="floatingInput">Email address</label>
           </div>
@@ -74,18 +77,16 @@ function Signin() {
               onChange={(e) => {
                 setpassword(e.target.value);
               }}
+              required
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
-          
-          <button
-            className="btn btn-dark w-100 py-2 mt-3"
-            type="button"
-            onClick={handle_request}
-          >
+
+          <button className="btn btn-dark w-100 py-2 mt-3" type="submit">
             Login
           </button>
-          <p className="mt-5 mb-3 text-body-secondary">© 2025</p>
+          <p className="mt-5 mb-3  error">{error}</p>
+          <p className="mt-5 mb-3 text-body-secondary error">© {currentYear}</p>
         </form>
       </main>
     </div>
